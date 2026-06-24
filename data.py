@@ -1,3 +1,6 @@
+#Following the tutorial from https://machinelearningmastery.com/machine-learning-in-python-step-by-step/
+#by Jason Brownlee
+
 # Load libraries
 from pandas import read_csv
 from pandas.plotting import scatter_matrix
@@ -53,15 +56,17 @@ print('*************************************************************************
 #layout = (2,2) - 2 rows and 2 columns
 #sharex = False - each plot will have its own x axis (sharey = for y axis)
 dataset.plot(kind = 'box', subplots = True, layout = (2,2), sharex = False, sharey = False)
-plt.show()
+#plt.show()
 
 #gistograms of each variable
 dataset.hist()
-plt.show()
+#plt.show()
 
 #interactions between variables- scatter plot
-scatter_matrix(dataset)
-plt.show()
+def ScMatrix():
+    scatter_matrix(dataset)
+    plt.title('Scatter Matrix of the Dataset')
+    plt.show()
 
 
 print('*******************************************************************************')
@@ -101,13 +106,13 @@ for name, model in models:
     cv_results = cross_val_score(model, x_train, y_train, cv = kfold, scoring = 'accuracy')
     results.append(cv_results)
     names.append(name)
-    print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
+    #print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
 
 
 #comparing algorithms
-plt.boxplot(results, tick_labels = names)
-plt.title('Algorithm Comparison')
-plt.show()
+#plt.boxplot(results, tick_labels = names)
+#plt.title('Algorithm Comparison')
+#plt.show()
 
 
 
@@ -119,6 +124,7 @@ model = SVC(gamma = 'auto')
 model.fit(x_train, y_train)
 predictions = model.predict(x_validation)
 
+"""
 #evaluate predictions
 print('Accuracy score: ', accuracy_score(y_validation, predictions))
 print('Confusion matrix: ')
@@ -127,7 +133,7 @@ print('Classification report: ')
 print(classification_report(y_validation, predictions))
 
 print('*******************************************************************************')
-
+"""
 
 #save the trained model
 joblib.dump(model, 'iris_model.pkl')

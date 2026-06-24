@@ -18,3 +18,5 @@ print('pandas: {}'.format(pandas.__version__))
 # scikit-learn - installed scikit-learn
 import sklearn
 print('sklearn: {}'.format(sklearn.__version__))
+import joblib
+print('joblib: {}'.format(joblib.__version__))
