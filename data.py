@@ -25,7 +25,7 @@ print('Dataset loaded.')
 #instances (rows) and attributes (columns)
 print('Dataset shape: ',(dataset.shape))
 
-"""
+
 print('*******************************************************************************')
 #first 20 rows of the dataset
 print('First 20 rows of the dataset:')
@@ -62,7 +62,6 @@ plt.show()
 scatter_matrix(dataset)
 plt.show()
 
-"""
 
 print('*******************************************************************************')
 
@@ -83,19 +82,21 @@ print('*************************************************************************
 
 #Test algorithms- simple linear and non linear algorithms
 models = []
-models.append(('LR', LogisticRegression(max_iter = 200)))
-models.append(('LDA', LinearDiscriminantAnalysis()))
-models.append(('KNN', KNeighborsClassifier()))
-models.append(('CART', DecisionTreeClassifier()))
-models.append(('NB', GaussianNB()))
-models.append(('SVM', SVC(gamma = 'auto')))
+models.append(('LR', LogisticRegression(max_iter = 200))) #probability of data being in a class
+models.append(('LDA', LinearDiscriminantAnalysis())) #avg of species projected to a line and then classified
+models.append(('KNN', KNeighborsClassifier()))       #based on similarity to neighbours
+models.append(('CART', DecisionTreeClassifier()))    #based on a tree x yes or no questions 
+models.append(('NB', GaussianNB()))                  #based on measurements, each value being standalone
+models.append(('SVM', SVC(gamma = 'auto')))          #widest safe margin between classes
 
 #evalutating each model in turn
 results = []
 names = []
 
 for name, model in models:
+    #train on 9 parts and test on 1, randomlu, and scrambe data
     kfold = StratifiedKFold(n_splits= 10, random_state = 1, shuffle = True)
+    #train and test on kfold
     cv_results = cross_val_score(model, x_train, y_train, cv = kfold, scoring = 'accuracy')
     results.append(cv_results)
     names.append(name)
